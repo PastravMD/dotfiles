@@ -1,0 +1,226 @@
+# ArchLabs i3 config
+
+# Xresources      var      value       fallback
+set_from_resource $bg      background  #19043C
+set_from_resource $fg      foreground  #F1F1F1
+set_from_resource $black   color0      #19043C
+set_from_resource $red     color1      #EE79A9
+set_from_resource $green   color2      #8C9440
+set_from_resource $yellow  color3      #DE935F
+set_from_resource $blue    color4      #05C6F1
+set_from_resource $purple  color5      #85678F
+set_from_resource $cyan    color6      #5E8D87
+set_from_resource $grey    color7      #969CD3
+
+# class                 bd    bg  txt    ind   child_bd
+client.focused          $grey $bg $green $blue $grey
+client.unfocused        $grey $bg $fg    $bg   $bg
+client.focused_inactive $grey $bg $fg    $bg   $bg
+client.urgent           $red  $bg $red   $red  $red
+client.placeholder      $grey $bg $bg    $bg   $bg
+client.background       $bg
+
+# mouse and focus
+focus_follows_mouse no
+
+# font
+#font pango:Terminus 14px
+font Inconsolata 14px
+
+# $Mod = Super or Alt?
+set $Mod Mod1
+
+# direction keys
+set $up k
+set $down j
+set $left h
+set $right l
+
+# monitors
+set $Mon1 HDMI1
+set $Mon2 HDMI2
+
+#####################################################
+###############     Autostart      ##################
+#####################################################
+
+# run with reload
+exec_always --no-startup-id al-polybar-session
+exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id setxkbmap -option caps:swapescape
+exec_always --no-startup-id xrdb -load ~/.Xresources
+
+# run once
+exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
+exec --no-startup-id al-compositor --start
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id xfsettingsd
+exec --no-startup-id lxpolkit
+
+
+###########################################################
+#############         Bindings           ##################
+###########################################################
+
+# kill focused window
+bindsym $Mod+Shift+q kill
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# launchers
+#bindsym Control+space exec --no-startup-id rofr.sh -r
+bindsym $Mod+d exec --no-startup-id rofr.sh -r
+
+# logout script
+bindsym $Mod+x exec --no-startup-id rofr.sh -l
+
+# Screenshot
+bindsym Print exec --no-startup-id "scrot '%S.png' \
+            -e 'mv $f $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png \
+            ; gpicview $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png'"
+
+# audio
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
+bindsym XF86AudioMute exec --no-startup-id pamixer -t
+
+# backlight (initially using xbacklight)
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 4%
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 4%
+
+################################################################
+###########          Workspace Bindings          ###############
+################################################################
+
+set $WS0 "0"
+set $WS1 "1"
+set $WS2 "2"
+set $WS3 "3"
+set $WS4 "4"
+set $WS5 "5"
+set $WS6 "6"
+set $WS7 "7"
+set $WS8 "8"
+set $WS9 "9"
+
+# workspace assignment
+workspace $WS0 output $Mon1
+workspace $WS1 output $Mon1
+workspace $WS2 output $Mon1
+workspace $WS3 output $Mon1
+workspace $WS4 output $Mon1
+workspace $WS5 output $Mon2
+workspace $WS6 output $Mon2
+workspace $WS7 output $Mon2
+workspace $WS8 output $Mon2
+workspace $WS9 output $Mon2
+
+# switch to workspace
+bindsym $Mod+0 workspace $WS0
+bindsym $Mod+1 workspace $WS1
+bindsym $Mod+2 workspace $WS2
+bindsym $Mod+3 workspace $WS3
+bindsym $Mod+4 workspace $WS4
+bindsym $Mod+5 workspace $WS5
+bindsym $Mod+6 workspace $WS6
+bindsym $Mod+7 workspace $WS7
+bindsym $Mod+8 workspace $WS8
+bindsym $Mod+9 workspace $WS9
+
+# move focused container to workspace
+bindsym $Mod+Shift+0 move container to workspace $WS0
+bindsym $Mod+Shift+1 move container to workspace $WS1
+bindsym $Mod+Shift+2 move container to workspace $WS2
+bindsym $Mod+Shift+3 move container to workspace $WS3
+bindsym $Mod+Shift+4 move container to workspace $WS4
+bindsym $Mod+Shift+5 move container to workspace $WS5
+bindsym $Mod+Shift+6 move container to workspace $WS6
+bindsym $Mod+Shift+7 move container to workspace $WS7
+bindsym $Mod+Shift+8 move container to workspace $WS8
+bindsym $Mod+Shift+9 move container to workspace $WS9
+
+############################################################
+##############     Reload configs           ################
+############################################################
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $Mod+Shift+r restart
+
+# reload the configuration file
+bindsym $Mod+Shift+c reload
+
+########################################################
+############      Container/Window control  ############
+########################################################
+
+# Scratchpad, Floating
+bindsym $Mod+Shift+space floating toggle
+floating_modifier $Mod
+
+bindsym $Mod+Shift+z move scratchpad
+bindsym $Mod+z scratchpad show
+
+# change focus
+bindsym $Mod+$left  focus left
+bindsym $Mod+$down  focus down
+bindsym $Mod+$up    focus up
+bindsym $Mod+$right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $Mod+Left  focus left
+bindsym $Mod+Down  focus down
+bindsym $Mod+Up    focus up
+bindsym $Mod+Right focus right
+
+bindsym $Mod+p focus parent
+bindsym $Mod+c focus child
+
+# move focused window
+bindsym $Mod+Shift+$left  move left  10px
+bindsym $Mod+Shift+$down  move down  10px
+bindsym $Mod+Shift+$up    move up    10px
+bindsym $Mod+Shift+$right move right 10px
+
+# alternatively, you can use the cursor keys:
+bindsym $Mod+Shift+Up    move up    10px
+bindsym $Mod+Shift+Down  move down  10px
+bindsym $Mod+Shift+Left  move left  10px
+bindsym $Mod+Shift+Right move right 10px
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $Mod+r mode "resize"
+
+# switch to workspace with urgent window
+for_window [urgent="latest"] focus
+focus_on_window_activation   focus
+
+# container layout
+bindsym $Mod+b split h
+bindsym $Mod+v split v
+bindsym $Mod+w layout tabbed
+bindsym $Mod+s layout stacking
+bindsym $Mod+e layout toggle split
+default_orientation horizontal
