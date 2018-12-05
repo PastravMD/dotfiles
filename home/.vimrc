@@ -29,7 +29,7 @@ set smartcase
 set hlsearch
 set incsearch
 
-set textwidth=100
+set textwidth=80
 set smartindent
 
 " Display extra whitespace
