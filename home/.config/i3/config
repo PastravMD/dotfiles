@@ -57,6 +57,12 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfsettingsd
 exec --no-startup-id lxpolkit
 
+# prevent sleep/idle/etc. that messes up the thunderbolt connection
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id setterm -powerdown 0
+exec --no-startup-id setterm -powersave off
+
 
 ###########################################################
 #############         Bindings           ##################
