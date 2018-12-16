@@ -128,6 +128,11 @@ let g:syntastic_quiet_messages = {"regex" : ".*No such file or directory.*"}
 let g:NERDTreeDirArrows=0
 
 """"""""""""""""""""""""""""""""""
+" TagBar plugin configuration  "
+""""""""""""""""""""""""""""""""""
+let g:tagbar_sort = 0
+
+""""""""""""""""""""""""""""""""""
 "      custom key mappings       "
 """"""""""""""""""""""""""""""""""
 "quicker window movement
