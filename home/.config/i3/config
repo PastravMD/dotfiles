@@ -37,8 +37,8 @@ set $left h
 set $right l
 
 # monitors
-set $Mon1 HDMI1
-set $Mon2 HDMI2
+set $Mon1 DP-1-2
+set $Mon2 eDP-1
 
 #####################################################
 ###############     Autostart      ##################
@@ -49,6 +49,7 @@ exec_always --no-startup-id al-polybar-session
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id setxkbmap -option caps:swapescape
 exec_always --no-startup-id xrdb -load ~/.Xresources
+exec_always xrandr | grep "DP-1-2 connected" && xrandr --output DP-1-2 --auto --output eDP1 --off
 
 # run once
 exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
@@ -230,3 +231,7 @@ bindsym $Mod+w layout tabbed
 bindsym $Mod+s layout stacking
 bindsym $Mod+e layout toggle split
 default_orientation horizontal
+
+#bar {
+#	status_command i3status
+#}
