@@ -11,7 +11,7 @@ set noswapfile
 
 set history=50
 
-set ruler 
+set ruler
 set laststatus=2
 set autoread
 
@@ -42,9 +42,9 @@ set colorcolumn=+1
 " enable indentation
 filetype indent on
 
-" Automatically create folds (to collapse functions mostly), 
-" and instruct to open all the folds by default 
-autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax 
+" Automatically create folds (to collapse functions mostly),
+" and instruct to open all the folds by default
+autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
 " Open new split panes to right and bottom, which feels more natural
@@ -95,17 +95,23 @@ endif
 colorscheme solarized
 let g:airline_theme='simple'
 
-"let g:airline_powerline_fonts = 1
+" clean backup option
+let g:airline_symbols_ascii = 1
+
+" get patched fonts from:
+"    https://github.com/powerline/fonts/tree/master/Inconsolata
+let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_symbols.space = "\ua0"
 
+let g:airline_symbols.maxlinenr = ''
 """"""""""""""""""""""""""""""""""""""
 " vim-gitgutter plugin configuration "
 """"""""""""""""""""""""""""""""""""""
-"GitGutterEnable
-
+let g:gitgutter_enabled = 0
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_lines = 0
 
 """"""""""""""""""""""""""""""""""
 " Syntastic plugin configuration "
