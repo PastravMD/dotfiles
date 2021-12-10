@@ -2,27 +2,72 @@
 ! theme colors
 ! ------------------------------------------------------------------------------
 ! special
-*.foreground: #c0c5ce
-*.background: #2b303b
-*.cursorColor: #c0c5ce
 
-*.color0: #2b303b
-*.color1: #bf616a
-*.color2: #a3be8c
-*.color3: #ebcb8b
-*.color4: #8fa1b3
-*.color5: #b48ead
-*.color6: #96b5b4
-*.color7: #65737e
+! Solarized color scheme for the X Window System
 
-*.color8: #65737e
-*.color9: #bf616a
-*.color10: #a3be8c
-*.color11: #ebcb8b
-*.color12: #8fa1b3
-*.color13: #b48ead
-*.color14: #96b5b4
-*.color15: #F6F6F6
+! Common
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+
+! Dark
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+
+! Light
+
+! #define S_base03        #fdf6e3
+! #define S_base02        #eee8d5
+! #define S_base01        #93a1a1
+! #define S_base00        #839496
+! #define S_base0         #657b83
+! #define S_base1         #586e75
+! #define S_base2         #073642
+! #define S_base3         #002b36
+
+
+
+*background:              S_base03
+*foreground:              S_base0
+*fading:                  40
+*cursorColor:             S_base1
+*pointerColorBackground:  S_base01
+*pointerColorForeground:  S_base1
+
+!S_base03
+*fadeColor:               black
+
+*color0:                  S_base02
+*color1:                  S_red
+*color2:                  S_green
+*color3:                  S_yellow
+*color4:                  S_blue
+*color5:                  S_magenta
+*color6:                  S_cyan
+*color7:                  S_base2
+*color9:                  S_orange
+*color8:                  S_base03
+*color10:                 S_base01
+*color11:                 S_base00
+*color12:                 S_base0
+*color13:                 S_violet
+*color14:                 S_base1
+*color15:                 S_base3
 
 ! ------------------------------------------------------------------------------
 ! general
@@ -42,14 +87,13 @@ URxvt*scrollBar_right: false
 URxvt*internalBorder: 0
 URxvt*externalBorder: 0
 URxvt*letterSpace: -1
-!URxvt*font: xft:Inconsolata:pixelsize=20:antialias=true:hinting=true
-URxvt*font: xft:Inconsolata for Powerline:pixelsize=20:antialias=true:hinting=true
-URxvt*boldFont: xft:Inconsolata:bold:pixelsize=20:antialias=true:hinting=true
-URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt*font: xft:Inconsolata:pixelsize=24:antialias=true:hinting=true
+!URxvt*font: xft:Inconsolata:pixelsize=24
+!URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
 URxvt.copyCommand: xclip -i -selection clipboard
 URxvt.pasteCommand: xclip -o -selection clipboard
-URxvt.keysym.m-c: perl:clipboard:copy
-URxvt.keysym.m-v: perl:clipboard:paste
+!URxvt.keysym.m-c: perl:clipboard:copy
+!URxvt.keysym.m-v: perl:clipboard:paste
 URxvt.urlLauncher: exo-open
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
@@ -60,15 +104,9 @@ URxvt.tabbed.tab-fg: 15
 URxvt.tabbed.tab-bg: 4
 URxvt*buffered: false
 URxvt.transparent: true
-URxvt.shading: 15
-URxvt.fading: 30
-URxvt.fadecolor: color1
+URxvt.shading: 10
 
-! ------------------------------------------------------------------------------
-! Rofi
-! ------------------------------------------------------------------------------
-rofi.font: Inconsolata 10
-rofi.color-enabled: true
-rofi.color-window: #2b303b, #2b303b, #2b303b
-rofi.color-normal: #2b303b, #c0c5ce, #2b303b, #8fa1b3, #2b303b
-rofi.separator-style: solid
+!URxvt.fading: 30
+!URxvt.fadecolor: color1
+
+
