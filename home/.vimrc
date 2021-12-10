@@ -29,15 +29,31 @@ set smartcase
 set hlsearch
 set incsearch
 
-set textwidth=80
+set textwidth=140
 set smartindent
+set tabstop=4
+
+""""""""""""""""""""""""""""""""""
+"         unicode support        "
+""""""""""""""""""""""""""""""""""
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-set tabstop=8
+"set list listchars=tab:»·,trail:·,nbsp:·
+set tabstop=4
 set formatoptions=qrn1
 set wrapmargin=0
 set colorcolumn=+1
+
+" allow backspace to delete special characters
+set backspace=indent,eol,start
 
 " enable indentation
 filetype indent on
@@ -56,22 +72,8 @@ set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
 
-"Toggle relative numbering, and set to absolute on loss of focus or insert mode
 set number
-set relativenumber
 set numberwidth=5
-function! ToggleNumbersOn()
-    set nu!
-    set rnu
-endfunction
-function! ToggleRelativeOn()
-    set rnu!
-    set nu
-endfunction
-autocmd FocusLost * call ToggleRelativeOn()
-autocmd FocusGained * call ToggleRelativeOn()
-autocmd InsertEnter * call ToggleRelativeOn()
-autocmd InsertLeave * call ToggleRelativeOn()
 
 " Always use vertical diffs
 set diffopt+=vertical
@@ -79,54 +81,31 @@ set diffopt+=vertical
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
 
+" to enable 'find' to work on the crrent dir when ctrlp fails
+set path+=**
+
 execute pathogen#infect()
 
 syntax on
+syntax enable
 
 """"""""""""""""""""""""""""""""""
 "          color scheme          "
 """"""""""""""""""""""""""""""""""
 let g:solarized_termcolors=256
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+let g:solarized_termtrans=0
+set background=dark
 colorscheme solarized
-let g:airline_theme='simple'
 
-" clean backup option
+let g:airline_theme='simple'
 let g:airline_symbols_ascii = 1
 
-" get patched fonts from:
-"    https://github.com/powerline/fonts/tree/master/Inconsolata
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_symbols.maxlinenr = ''
 """"""""""""""""""""""""""""""""""""""
 " vim-gitgutter plugin configuration "
 """"""""""""""""""""""""""""""""""""""
 let g:gitgutter_enabled = 0
 let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 0
-
-""""""""""""""""""""""""""""""""""
-" Syntastic plugin configuration "
-""""""""""""""""""""""""""""""""""
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
-" ignore spurious error
-let g:syntastic_quiet_messages = {"regex" : ".*No such file or directory.*"}
 
 """"""""""""""""""""""""""""""""""
 " NERDTree plugin configuration  "
@@ -137,6 +116,28 @@ let g:NERDTreeDirArrows=0
 " TagBar plugin configuration  "
 """"""""""""""""""""""""""""""""""
 let g:tagbar_sort = 0
+
+""""""""""""""""""""""""""""""""""
+" TagBar plugin configuration  "
+""""""""""""""""""""""""""""""""""
+let g:tabular_loaded = 1
+
+""""""""""""""""""""""""""""""""""
+" quick tag highlight mappings
+""""""""""""""""""""""""""""""""""
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
+
+nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+
+nmap <Space>c <Plug>(quickhl-manual-clear)
+vmap <Space>c <Plug>(quickhl-manual-clear)
+
+nmap <Space>M <Plug>(quickhl-manual-reset)
+xmap <Space>M <Plug>(quickhl-manual-reset)
+
+nmap <Space>j <Plug>(quickhl-cword-toggle)
 
 """"""""""""""""""""""""""""""""""
 "      custom key mappings       "
@@ -176,10 +177,6 @@ nmap <silent> <C-k5>        <C-W>_
 nmap <C-n>              :tabprev<CR>
 nmap <C-m>              :tabnext<CR>
 
-"Use enter to create new lines w/o entering insert mode
-" (!) - weirdly overrides <C-m>
-"nnoremap <CR> o<Esc>
-
 " shortcuts to open/close a fold (go over the name of a function first)
 nmap <silent> <kPlus>       zo
 nmap <silent> <kMinus>      zc
@@ -193,14 +190,4 @@ set fileencoding=utf-8
 "set encoding=latin1
 "set fileencoding=latin1
 
-""""""""""""""""""""""""""""""""""
-"         unicode support        "
-""""""""""""""""""""""""""""""""""
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
+

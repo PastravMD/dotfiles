@@ -1,5 +1,3 @@
-# ArchLabs i3 config
-
 # Xresources      var      value       fallback
 set_from_resource $bg      background  #19043C
 set_from_resource $fg      foreground  #F1F1F1
@@ -20,12 +18,17 @@ client.urgent           $red  $bg $red   $red  $red
 client.placeholder      $grey $bg $bg    $bg   $bg
 client.background       $bg
 
+# my solarized imitation scheme
+set $grey3         #080808
+set $grey7         #121212
+set $darkgoldenrod #af8700
+
 # mouse and focus
 focus_follows_mouse no
 
 # font
-#font pango:Terminus 14px
-font Inconsolata 14px
+#font pango:Terminus 20px
+font pango:Inconsolata 18px
 
 # $Mod = Super or Alt?
 set $Mod Mod1
@@ -37,6 +40,7 @@ set $left h
 set $right l
 
 # monitors
+#set $Mon1 DP-1
 set $Mon1 DP-2
 set $Mon2 eDP-1
 
@@ -45,18 +49,8 @@ set $Mon2 eDP-1
 #####################################################
 
 # run with reload
-exec_always --no-startup-id al-polybar-session
-exec_always --no-startup-id nitrogen --restore
-exec_always --no-startup-id setxkbmap -option caps:swapescape
+exec_always --no-startup-id feh --no-fehbg --bg-fill '~/Downloads/wallpapers/mountain-sunrise.jpg'
 exec_always --no-startup-id xrdb -load ~/.Xresources
-exec_always xrandr | grep "DP-1-2 connected" && xrandr --output DP-1-2 --auto --output eDP1 --off
-
-# run once
-exec --no-startup-id ksuperkey -e 'Super_L=Alt_L|F1'
-exec --no-startup-id al-compositor --start
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id xfsettingsd
-exec --no-startup-id lxpolkit
 
 # prevent sleep/idle/etc. that messes up the thunderbolt connection
 exec --no-startup-id xset s off
@@ -76,11 +70,10 @@ bindsym $Mod+Shift+q kill
 bindsym $mod+Return exec i3-sensible-terminal
 
 # launchers
-#bindsym Control+space exec --no-startup-id rofr.sh -r
-bindsym $Mod+d exec --no-startup-id rofr.sh -r
+bindsym $Mod+d exec dmenu_run -i -fn 'xft:Inconsolata:pixelsize=24' -nb grey3 -sb grey7 -nf darkgoldenrod -sf cyan
 
-# logout script
-bindsym $Mod+x exec --no-startup-id rofr.sh -l
+# lockscreen script
+bindsym $Mod+x exec lockscreen.sh
 
 # Screenshot
 bindsym Print exec --no-startup-id "scrot '%S.png' \
@@ -88,17 +81,17 @@ bindsym Print exec --no-startup-id "scrot '%S.png' \
             ; gpicview $$(xdg-user-dir PICTURES)/ArchLabs-%S-$wx$h.png'"
 
 # audio
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
-bindsym XF86AudioMute exec --no-startup-id pamixer -t
+#bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+#bindsym XF86AudioNext exec --no-startup-id playerctl next
+#bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+#bindsym XF86AudioStop exec --no-startup-id playerctl stop
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
+#bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
+#bindsym XF86AudioMute exec --no-startup-id pamixer -t
 
 # backlight (initially using xbacklight)
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 4%
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 4%
+#bindsym XF86MonBrightnessUp exec --no-startup-id light -A 4%
+#bindsym XF86MonBrightnessDown exec --no-startup-id light -U 4%
 
 ################################################################
 ###########          Workspace Bindings          ###############
@@ -121,11 +114,11 @@ workspace $WS2 output $Mon1
 workspace $WS3 output $Mon1
 workspace $WS4 output $Mon1
 workspace $WS5 output $Mon1
-workspace $WS6 output $Mon2
-workspace $WS7 output $Mon3
-workspace $WS8 output $Mon4
-workspace $WS9 output $Mon5
-workspace $WS10 output $Mon6
+workspace $WS6 output $Mon1
+workspace $WS7 output $Mon1
+workspace $WS8 output $Mon1
+workspace $WS9 output $Mon1
+workspace $WS10 output $Mon1
 
 # switch to workspace
 bindsym $Mod+1 workspace $WS1
@@ -232,6 +225,20 @@ bindsym $Mod+s layout stacking
 bindsym $Mod+e layout toggle split
 default_orientation horizontal
 
-#bar {
-#	status_command i3status
-#}
+bar {
+	tray_output primary
+	font pango:Inconsolata 16
+
+	colors {
+		background $grey3
+		statusline #DDDDDD
+		separator  $yellow
+
+		focused_workspace  $darkgoldenrod #333333 $cyan
+        active_workspace   #333333 #5f676a $cyan
+        inactive_workspace #333333 #222222 $darkgoldenrod
+        urgent_workspace   #2f343a #900000 $cyan
+	}
+
+	status_command i3status
+}

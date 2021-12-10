@@ -22,11 +22,7 @@ alias l='ls'
 alias la='ls -A'
 alias ll='ls -lA'
 alias ls='ls --color=auto'
-alias upd='sudo pacman -Syyu'
-alias pac='sudo pacman --color auto'
-alias merge='xrdb -merge ~/.Xresources'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias mirrors='sudo reflector --score 100 --fastest 25 --sort rate --save /etc/pacman.d/mirrorlist --verbose'
 alias tags-here='export CSCOPE_DB=$PWD; rm cscope.out tags; cscope -b -R; ctags --recurse;'
 
 # Infinite  history
@@ -36,14 +32,8 @@ export HISSTIMEFORMAT="[%F %T] "
 export HISTFILE=~/.bash_infinite_history
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+export TERM=rxvt-unicode
 export EDITOR=vim
-export VISUAL=vim
 
-# for the MIT OCW graphics assignments
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mihai/fun/projects/mit-ocw-computer-graphics/vecmath
-
-# display system information everytime bash opens
-#neofetch
-
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
+#source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+#source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
